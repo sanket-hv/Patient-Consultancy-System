@@ -3,13 +3,15 @@ html
         script(type="text/javascript").
             window.onload = function(){
                 var pid = localStorage.getItem("ptid");
-                document.getElementById('pidval').innerHTML = pid;
+                document.getElementById('pidval').value = pid;
                 };
         title Patient System
         body
-            h1  this is a payment Page
-            p(id="pidval")
-            input(type="text" )
+            form#AddPaymentForm(method='post' action='/payment/add')
+                input(type="hidden" name="ptid" id="pidval")
+                label Add Payment Amount
+                input#email(type='text' name='creditAmt')
+                input(type='submit' name='submit' value='submit')
 
 
 

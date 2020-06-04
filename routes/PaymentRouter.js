@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var app = express();
-
 app.use(cookieParser());
 app.use(session({
     secret: "patient-system",
@@ -19,19 +18,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 router.get('/', (req, res) => { console.log("Method called") });
 
 router.post('/add', (req, res) => {
-    // console.log("Registration Method Called");
-    // sess = req.session;
     console.log("Add nethod");
-    console.log(req.session);
-    // console.log(req);
     var today = new Date();
     console.log("Payment")
     var payments = {
         "DebitAmt": 0,
         "CreditAmt": req.body.creditAmt,
         "Remarks": "Paymetns Added",
-        "sess": req.session,
-        "PatientId": 1, //1 is for testing only
+        "PatientId": req.body.ptid, //1 is for testing only
         "CreatedAt": today
     }
 
