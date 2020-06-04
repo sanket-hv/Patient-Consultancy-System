@@ -1,0 +1,10 @@
+html
+-var objs = JSON.parse(JSON.stringify(obj))
+    p #{obj.pid}
+    head
+        script. 
+            localStorage.setItem("ptid", #{obj.pid})
+        title Patient System
+        body
+            h1  this is a patient system
+            a(href="/paymentPage") Payment Page

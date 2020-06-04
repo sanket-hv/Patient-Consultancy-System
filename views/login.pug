@@ -1,0 +1,11 @@
+html
+  head
+    title Patient System
+  body  
+    form#loginForm(method='post' action='/authenticate/login')
+      label Email
+      input#email(type='email' name='email')
+      br
+      label Password
+      input#password(type='password' name='password')
+      input(type='submit' name='login' value='submit')
