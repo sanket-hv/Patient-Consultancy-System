@@ -13,7 +13,7 @@ var router = express.Router();
 // var sess;
 router.post('/login', (req, res) => {
 
-    console.log("Login Method Called");
+    // console.log("Login Method Called");
     // sess = req.session;
     var email = req.body.email;
     var password = req.body.password;
@@ -39,7 +39,6 @@ router.post('/login', (req, res) => {
                         "pid": results[0].PatientId,
                         "message": "Authenticated Successfully"
                     };
-                    console.log(op);
                     res.render('homePage', { obj: op });
                 } else {
                     res.json({

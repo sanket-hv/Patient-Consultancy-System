@@ -1,35 +1,19 @@
 var connection = require('./../config');
 const express = require('express');
 const bodyParser = require('body-parser');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
 var app = express();
-app.use(cookieParser());
-app.use(session({
-    secret: "patient-system",
-    resave: true,
-    saveUninitialized: true
-}));
-// const app = express();
 const router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-router.get('/', (req, res) => { console.log("Method called") });
-
 router.post('/add', (req, res) => {
-    console.log("Add nethod");
     var today = new Date();
-    console.log("Payment")
     var payments = {
         "DebitAmt": 0,
         "CreditAmt": req.body.creditAmt,
         "Remarks": "Paymetns Added",
-        "PatientId": req.body.ptid, //1 is for testing only
+        "PatientId": req.body.ptid,
         "CreatedAt": today
     }
-
-    console.log(payments);
     connection.query('INSERT INTO PaymentTbl SET ?', payments, function (error, results, fields) {
         if (error) {
             res.json({
@@ -38,12 +22,105 @@ router.post('/add', (req, res) => {
                 message: 'there are some error with query',
             })
         } else {
-            res.json({
+            var op = {
                 status: true,
-                val: payments,
                 data: results,
                 message: 'payment made sucessfully'
+            };
+            res.render('homePage', { obj: op });
+        }
+    });
+})
+
+router.post('/history', (req, res) => {
+
+    console.log(req.body.pid);
+    patientid = req.body.pid;
+    connection.query('SELECT * FROM PaymentTbl WHERE PatientId = ?', [patientid], function (error, results, fields) {
+        res.send(results);
+    });
+})
+
+router.get('/service/video/:pid', (req, res) => {
+    console.log("This is a video call service");
+    var today = new Date();
+    var payments = {
+        "DebitAmt": 100,
+        "CreditAmt": 0,
+        "Remarks": "Charges for Video Call",
+        "PatientId": req.params.pid,
+        "CreatedAt": today
+    }
+    connection.query('INSERT INTO PaymentTbl SET ?', payments, function (error, results, fields) {
+        if (error) {
+            res.json({
+                status: false,
+                data: payments,
+                message: 'there are some error with query',
             })
+        } else {
+            var op = {
+                status: true,
+                data: results,
+                message: 'Service Charges Deducted'
+            };
+            res.render('homePage', { obj: op });
+        }
+    });
+})
+
+router.get('/service/call/:pid', (req, res) => {
+    console.log("This is a video call service");
+    var today = new Date();
+    var payments = {
+        "DebitAmt": 80,
+        "CreditAmt": 0,
+        "Remarks": "Charges for Call",
+        "PatientId": req.params.pid,
+        "CreatedAt": today
+    }
+    connection.query('INSERT INTO PaymentTbl SET ?', payments, function (error, results, fields) {
+        if (error) {
+            res.json({
+                status: false,
+                data: payments,
+                message: 'there are some error with query',
+            })
+        } else {
+            var op = {
+                status: true,
+                data: results,
+                message: 'Service Charges Deducted'
+            };
+            res.render('homePage', { obj: op });
+        }
+    });
+})
+
+router.get('/service/chat/:pid', (req, res) => {
+    console.log("This is a video chat service");
+    var today = new Date();
+    var payments = {
+        "DebitAmt": 50,
+        "CreditAmt": 0,
+        "Remarks": "Charges for Chat",
+        "PatientId": req.params.pid,
+        "CreatedAt": today
+    }
+    connection.query('INSERT INTO PaymentTbl SET ?', payments, function (error, results, fields) {
+        if (error) {
+            res.json({
+                status: false,
+                data: payments,
+                message: 'there are some error with query',
+            })
+        } else {
+            var op = {
+                status: true,
+                data: results,
+                message: 'Service Charges Deducted'
+            };
+            res.render('homePage', { obj: op });
         }
     });
 })

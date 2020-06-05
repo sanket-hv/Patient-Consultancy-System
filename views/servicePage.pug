@@ -1,0 +1,14 @@
+extends layout.pug
+
+block content
+    h1  This is a Service Page
+    ul  
+        li
+            a(href="/payment/service/video/"+obj.pid) Make Video Call
+            div (Service Charge: 100 Rs.)
+        li
+            a(href="/payment/service/call/"+obj.pid) Make Call
+            div (Service Charge: 80 Rs.)
+        li
+            a(href="/payment/service/chat/"+obj.pid) Start Chat
+            div (Service Charge: 50 Rs.)

@@ -1,0 +1,14 @@
+html
+    head
+        title Patient System
+        body
+            form#RegistrationForm(method='post' action='/api/register')
+                label Enter Your Name
+                input(type='text' name='name')
+                label Enter Your Surname
+                input(type='text' name='surname')
+                label Enter Email
+                input(type='email' name='email')
+                label Enter Password
+                input(type='password' name='password')
+                input(type='submit' name='submit' value='Register')

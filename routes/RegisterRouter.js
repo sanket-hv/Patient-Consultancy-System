@@ -1,7 +1,6 @@
 var connection = require('./../config');
 
 module.exports.register = function (req, res) {
-    // console.log("Registration Method Called");
     var today = new Date();
     var patients = {
         "PatientName": req.body.name,
@@ -17,11 +16,12 @@ module.exports.register = function (req, res) {
                 message: 'there are some error with query'
             })
         } else {
-            res.json({
+            var op = {
                 status: true,
                 data: results,
                 message: 'patient registered sucessfully'
-            })
+            };
+            res.render('login', { obj: op });
         }
     });
 }
