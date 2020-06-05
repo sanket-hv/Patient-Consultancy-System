@@ -1,8 +1,34 @@
 extends layout.pug
-
+block append scripts
+    script(type="text/javascript").
+        //- alert("url"+document.referrer)
+        if(document.referrer == "http://localhost:8080/")
+        {
+            localStorage.setItem("ptid",#{obj.pid})
+        }
+        function callService()
+        {
+            //- alert("called")
+            window.location.href = "http://localhost:8080/servicePage/"+localStorage.getItem("ptid")
+        }
+        function callPayment()
+        {
+            //- alert("called")
+            window.location.href = "http://localhost:8080/paymentPage/"+localStorage.getItem("ptid")
+        }
 block content
     h1  this is a home Page
-    a(href="/paymentPage") Payment Page
-    p #{obj.pid}            
-    a(href="/servicePage/"+obj.pid) View Service
-    img(src="./../public/images/pt1.jpg", height="1000", width="1000")
+    //- p #{obj.pid}
+    //- a(href="/paymentPage/") Payment Page
+    button(onclick="callPayment()") Make Payment
+    br
+    //- a(href="/servicePage/" onclick="callService()") View Service
+    button(onclick="callService()") View Service
+    br
+    img(src="/images/pt1.jpg", height="400", width="500" border="1")
+    emsp
+    img(src="/images/pt2.jpg", height="400", width="500" border="1")
+    br
+    img(src="/images/pt3.jpg", height="400", width="500" border="1")
+    emsp
+    img(src="/images/pt4.jpg", height="400", width="500" border="1")

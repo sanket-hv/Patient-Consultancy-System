@@ -2,12 +2,10 @@ html
   head
     title My Site - Patient System
     block scripts
-      script(type="text/javascript")
-        alert("Layout Called")
   body
     block head
       #header
-        p This is a Header
+        a(href="/logout") Logout
     block content
     block foot
       #footer

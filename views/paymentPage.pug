@@ -1,18 +1,46 @@
-html
-    head
-        script(type="text/javascript").
-            window.onload = function(){
-                var pid = localStorage.getItem("ptid");
+extends layout.pug
+
+block append scripts
+    script(src="https://code.jquery.com/jquery-3.5.0.js")
+    script(type='text/javascript').
+        $(document).ready(function () {
+            var pid = localStorage.getItem("ptid");
+            if(pid == #{obj.pid})
+            {
                 document.getElementById('pidval').value = pid;
-                };
-        title Patient System
-        body
-            a(href="/historyPage") View Transaction
-            form#AddPaymentForm(method='post' action='/payment/add')
-                input(type="hidden" name="ptid" id="pidval")
-                label Add Payment Amount
-                input#email(type='text' name='creditAmt')
-                input(type='submit' name='submit' value='submit')
-
-
+                $.ajax({
+                type: 'post',
+                url: '/payment/history',
+                data: { pid: pid },
+                success: function (data) {
+                    var tp = '<table border="1"><tr><th>Debit</th><th>Credit</th><th>Remarks</th><th>Date/Time</th></tr>';                
+                    var tmpdb=0,tmpcr=0;
+                    for (var i = 0; i < data.length; i++) {
+                        tmpdb += data[i]['DebitAmt'];
+                        tmpcr += data[i]['CreditAmt'];
+                        tp += '<tr>';
+                        tp +='<td>'+data[i]['DebitAmt']+'</td>';
+                        tp +='<td>'+data[i]['CreditAmt']+'</td>';
+                        tp +='<td>'+data[i]['Remarks']+'</td>';
+                        tp +='<td>'+data[i]['CreatedAt']+'</td>';
+                        tp+='</tr>'
+                    }
+                    document.getElementById('temp').innerHTML = tp;
+                    document.getElementById('temp').innerHTML += '</tbody></table>';
+                    document.getElementById('balance').innerHTML = "Account Balance:" + "<b>" + (tmpcr-tmpdb)+"</b>";
+                    }
+                })
+            }            
+            else{
+                window.location.href = "http://localhost:8080/";
+            }
+        });
+block content
+    div(id="balance")
+    div(id="temp")
+    form#AddPaymentForm(method='post' action='/payment/add/')
+        input(type="hidden" name="ptid" id="pidval")
+        label Add Payment Amount
+        input#email(type='text' name='creditAmt')
+        input(type='submit' name='submit' value='submit')
 

@@ -12,18 +12,8 @@ app.set('views', 'views');
 var router = express.Router();
 // var sess;
 router.post('/login', (req, res) => {
-
-    // console.log("Login Method Called");
-    // sess = req.session;
     var email = req.body.email;
     var password = req.body.password;
-    // console.log(email);
-    // // sess.emailval = email;
-    // sess.emailval = [{
-    //     "emailval": email   
-    // }];
-    // console.log(req.session);
-    // sess.emailVal = email;
     connection.query('SELECT * FROM PatientTbl WHERE PatientEmail = ?', [email], function (error, results, fields) {
         if (error) {
             res.json({
@@ -33,12 +23,16 @@ router.post('/login', (req, res) => {
         } else {
             if (results.length > 0) {
                 if (password == results[0].PatientPass) {
-                    console.log("In if looop")
                     var op = {
                         "status": true,
                         "pid": results[0].PatientId,
                         "message": "Authenticated Successfully"
                     };
+                    // res.json({
+                    //     "status": true,
+                    //     "pid": results[0].PatientId,
+                    //     "message": "Authenticated Successfully"
+                    // });
                     res.render('homePage', { obj: op });
                 } else {
                     res.json({

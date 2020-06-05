@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use('public',express.static(__dirname+'/public'));
+app.use(express.static('public'));
 const hostname = "localhost";
 const port = 8080;
 
@@ -22,28 +22,49 @@ app.get('/', (req, res) => {
     res.render('login');
 })
 
+app.get('/homePage',(req,res)=>{
+    res.render('homePage');
+})
+
 //View Registration Page
 app.get('/registration', (req, res) => {
     res.render('registration');
 })
 
-//View Payment Page
-app.get('/paymentPage', (req, res) => {
-    res.render('paymentPage');
+
+app.get('/paymentPage', (req,res)=>{
+    res.render('login');
 })
 
-//View Payment History Page
-app.get('/historyPage', (req, res) => {
-    res.render('paymentHistory');
+app.get('/servicePage', (req,res)=>{
+    res.render('login');
+})
+
+//View Payment Page
+app.get('/paymentPage/:pid', (req, res) => {
+    if (req.params.pid == null || req.params.pid == undefined) {
+        res.render('login');
+    }
+    else {
+
+        var op = {
+            "pid": req.params.pid
+        }
+        res.render('paymentPage', { obj: op });
+    }
 })
 
 //View Service paymentPage
 app.get('/servicePage/:pid', (req, res) => {
-    console.log(req.params.pid)
     var op = {
-        "pid" : req.params.pid
+        "pid": req.params.pid
     }
     res.render('servicePage', { obj: op });
+})
+
+//Logout
+app.get('/logout', (req, res) => {
+    res.render('logoutPage');
 })
 
 app.use('/payment', paymentRoute);

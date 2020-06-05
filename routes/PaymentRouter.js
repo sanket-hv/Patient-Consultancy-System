@@ -5,12 +5,13 @@ var app = express();
 const router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 router.post('/add', (req, res) => {
     var today = new Date();
     var payments = {
         "DebitAmt": 0,
         "CreditAmt": req.body.creditAmt,
-        "Remarks": "Paymetns Added",
+        "Remarks": "Payment Added",
         "PatientId": req.body.ptid,
         "CreatedAt": today
     }
@@ -33,8 +34,6 @@ router.post('/add', (req, res) => {
 })
 
 router.post('/history', (req, res) => {
-
-    console.log(req.body.pid);
     patientid = req.body.pid;
     connection.query('SELECT * FROM PaymentTbl WHERE PatientId = ?', [patientid], function (error, results, fields) {
         res.send(results);
@@ -120,7 +119,7 @@ router.get('/service/chat/:pid', (req, res) => {
                 data: results,
                 message: 'Service Charges Deducted'
             };
-            res.render('homePage', { obj: op });
+            res.render('chatPage', { obj: op });
         }
     });
 })
