@@ -18,12 +18,19 @@ const authenticateRoute = require('./routes/AuthenticateRouter');
 const paymentRoute = require('./routes/PaymentRouter');
 
 //View Login Page
-app.get('/', (req, res) => {
+app.get('/login', (req, res) => {
     res.render('login');
 })
 
-app.get('/homePage',(req,res)=>{
-    res.render('homePage');
+app.get('/', (req, res) => {
+    res.render('index');
+})
+
+app.get('/homePage', (req, res) => {
+    var op = {
+        "pid": 0
+    }
+    res.render('homePage', { obj: op });
 })
 
 //View Registration Page
@@ -32,11 +39,11 @@ app.get('/registration', (req, res) => {
 })
 
 
-app.get('/paymentPage', (req,res)=>{
+app.get('/paymentPage', (req, res) => {
     res.render('login');
 })
 
-app.get('/servicePage', (req,res)=>{
+app.get('/servicePage', (req, res) => {
     res.render('login');
 })
 

@@ -1,34 +1,32 @@
 extends layout.pug
 block append scripts
-    script(type="text/javascript").
-        //- alert("url"+document.referrer)
-        if(document.referrer == "http://localhost:8080/")
+    script(type='text/javascript').
+        if(#{obj.pid == 0})
         {
-            localStorage.setItem("ptid",#{obj.pid})
+            //Do Nothing Here
+        }
+        else
+        {
+            localStorage.setItem("ptid",#{obj.pid});
         }
         function callService()
         {
-            //- alert("called")
             window.location.href = "http://localhost:8080/servicePage/"+localStorage.getItem("ptid")
         }
         function callPayment()
         {
-            //- alert("called")
             window.location.href = "http://localhost:8080/paymentPage/"+localStorage.getItem("ptid")
         }
-block content
-    h1  this is a home Page
-    //- p #{obj.pid}
-    //- a(href="/paymentPage/") Payment Page
-    button(onclick="callPayment()") Make Payment
-    br
-    //- a(href="/servicePage/" onclick="callService()") View Service
-    button(onclick="callService()") View Service
-    br
-    img(src="/images/pt1.jpg", height="400", width="500" border="1")
-    emsp
-    img(src="/images/pt2.jpg", height="400", width="500" border="1")
-    br
-    img(src="/images/pt3.jpg", height="400", width="500" border="1")
-    emsp
-    img(src="/images/pt4.jpg", height="400", width="500" border="1")
+    block content
+    main
+    .container(style='height:1300px;')
+        .row.mt-5.pt-5
+            .col.text-center
+                h1  "We are a team of doctor and you will get care here."
+                img(src="/images/h1.jpg" height="400" width="500" border="1")
+                emsp
+                img(src="/images/h3.jpg" height="400" width="500" border="1")
+                br
+                img(src="/images/h4.jpeg" height="400" width="500" border="1")
+                emsp
+                img(src="/images/h2.jpeg" height="400" width="500" border="1")

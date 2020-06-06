@@ -1,0 +1,68 @@
+html
+    head
+        title My Site - Patient System
+        block scripts
+        script(type="text/javascript").
+            function callService()
+            {
+                window.location.href = "http://localhost:8080/servicePage/"+localStorage.getItem("ptid")
+            }
+            function callPayment()
+            {
+                window.location.href = "http://localhost:8080/paymentPage/"+localStorage.getItem("ptid")
+            }
+        // JQuery
+        script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+        // Bootstrap tooltips
+        script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js')
+        // Bootstrap core JavaScript
+        script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js')
+        // MDB core JavaScript
+        script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js')
+        // Font Awesome
+        link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.2/css/all.css')
+        // Google Fonts
+        link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap')
+        // Bootstrap core CSS
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css' rel='stylesheet')
+        // Material Design Bootstrap
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css' rel='stylesheet')
+    body
+        // Main Navigation
+        block head
+        header
+            nav.navbar.fixed-top.navbar-expand-lg.navbar-dark.default-color.scrolling-navbar
+                a.navbar-brand(href='#')
+                    strong Patient System
+                button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarSupportedContent.collapse.navbar-collapse
+                    ul.navbar-nav.mr-auto
+                        li.nav-item.active
+                            a.nav-link(href='/homePage')
+                                | Home 
+                                span.sr-only (current)
+                        li.nav-item
+                            a.nav-link(role='button' onclick="callPayment()") Payment
+                        li.nav-item
+                            a.nav-link(role='button' onclick="callService()") Service
+                    ul.navbar-nav.nav-flex-icons
+                        li.nav-item
+                            a.nav-link(href='/login') Log In 
+                        li.nav-item
+                            a.nav-link(href='/registration') Sign Up
+        // Main Navigation
+        // Main Layout
+        block content
+        main
+        .container(style='height:1300px;')
+            .row.mt-5.pt-5
+                .col.text-center
+                    h1  "In 21th century people are sufferd from mental disease more than Physical."
+                    img(src="/images/pt1.jpg" height="400" width="500" border="1")
+                    emsp
+                    img(src="/images/pt2.jpg" height="400" width="500" border="1")
+                    br
+                    img(src="/images/pt3.jpg" height="400" width="500" border="1")
+                    emsp
+                    img(src="/images/pt4.jpg" height="400" width="500" border="1")

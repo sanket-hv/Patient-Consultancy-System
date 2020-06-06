@@ -1,12 +1,36 @@
-html
+doctype html
+html(lang='en')
   head
-    title Patient System
-  body  
-    form#loginForm(method='post' action='/authenticate/login')
-      label Email
-      input#email(type='email' name='email')
-      br
-      label Password
-      input#password(type='password' name='password')
-      input(type='submit' name='login' value='submit')
-      a(href="/registration") New User?Register
+    script(type="text/javascript").
+        //- alert("url"+document.referrer)
+        if(document.referrer == "http://localhost:8080/logout")
+        {
+            localStorage.removeItem("ptid")
+        }
+    title My Site - Patient System
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
+  body
+    .container(style='height: 100px', align='center')
+      h3 Patient System
+    .container.p-3.my-3.border.bg-info.text-white(style='width: 500px; height:400px')
+      h2(style='height: 70px', align='center') Login
+      form.form-horizontal(method="post" action='/authenticate/login')
+        .form-group(style='height: 70px', align="center")
+          label.control-label.col-sm-2(for='email') Email:
+          .col-sm-8
+            input#email.form-control(type='email', placeholder='Enter email', name='email')
+        .form-group(style='height: 70px', align="center")
+          label.control-label.col-sm-2(for='password') Password:
+          .col-sm-8
+            input#pwd.form-control(type='password', placeholder='Enter password', name='password')
+        .form-group(align="center")
+          .col-sm-offset-2.col-sm-10
+        
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-lg.btn-default(type='submit') Submit
+
