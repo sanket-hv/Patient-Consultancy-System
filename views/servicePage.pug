@@ -1,14 +1,28 @@
 extends layout.pug
 
+block append scripts
+    script(src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css").
+
+
 block content
-    h1  This is a Service Page
-    ul  
-        li
-            a(href="/payment/service/video/"+obj.pid) Make Video Call
-            div (Service Charge: 100 Rs.)
-        li
-            a(href="/payment/service/call/"+obj.pid) Make Call
-            div (Service Charge: 80 Rs.)
-        li
-            a(href="/payment/service/chat/"+obj.pid) Start Chat
-            div (Service Charge: 50 Rs.)
+    .container(style='height:1300px;')
+        .row.mt-5.pt-5
+            .col.text-center
+                h1 "Get servived by our team on different platforms."
+                ul#menu
+                div#chatbot  
+                    li
+                        a(href="/payment/service/chat/"+obj.pid) Live Chat  
+                            img(src="/images/chat.png" height="250px" width="250px")
+                        div (Service Charge: 50 Rs.)
+                div#videocall
+                    li
+                        a(href="/payment/service/video/"+obj.pid)
+                            img(src="/images/vc.png" height="250px" width="250px")
+                        div (Service Charge: 100 Rs.)
+                div#voicecall
+                    li
+                        a(href="/payment/service/call/"+obj.pid)
+                            img(src="/images/voicecall.png" height="250px" width="250px")
+                        div (Service Charge: 80 Rs.)
+                    

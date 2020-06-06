@@ -1,0 +1,40 @@
+doctype html
+html(lang='en')
+  head
+    title My Site - Patient System
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
+  body
+    .container(style='height: 100px', align='center')
+      h2 Patient System
+    .container.p-3.my-3.border.bg-info.text-white(style='width: 500px; height:550px')
+      h3(style='height: 70px', align='center') Sign Up
+      form.form-horizontal(method="post" action='/api/register')
+        .form-group(style='height: 70px', align="center")
+            label.control-label.col-sm-3(for='name', style="font-size: 16px") Name:
+            .col-sm-8
+                input#email.form-control(type='text', placeholder='Enter your Name', name='name')
+        .form-group(style='height: 70px', align="center")
+          label.control-label.col-sm-3(for='surname', style="font-size: 16px") Surname:
+          .col-sm-8
+            input#email.form-control(type='text', placeholder='Enter your Surname', name='surname')
+        .form-group(style='height: 70px', align="center")
+          label.control-label.col-sm-3(for='email', style="font-size: 16px") Email:
+          .col-sm-8
+            input#email.form-control(type='email', placeholder='Enter email', name='email')
+        .form-group(style='height: 70px', align="center")
+          label.control-label.col-sm-3(for='password', style="font-size: 16px") Password:
+          .col-sm-8
+            input#pwd.form-control(type='password', placeholder='Enter password', name='password')
+        .form-group(align="center")
+          .col-sm-offset-2.col-sm-10
+        
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-lg.btn-default.col-sm-3(type='submit') Submit
+            .col-sm-offset-2.col-sm-10
+            button.btn.btn-lg.btn-default.col-sm-3(type='submit') Submit
+

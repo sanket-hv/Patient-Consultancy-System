@@ -11,10 +11,11 @@ module.exports.register = function (req, res) {
     }
     connection.query('INSERT INTO PatientTbl SET ?', patients, function (error, results, fields) {
         if (error) {
-            res.json({
+            var op = {
                 status: false,
-                message: 'there are some error with query'
-            })
+                message: 'there are some error with query',
+            }
+            res.render('index', { obj: op });
         } else {
             var op = {
                 status: true,

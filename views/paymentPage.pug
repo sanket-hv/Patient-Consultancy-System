@@ -13,12 +13,13 @@ block append scripts
                 url: '/payment/history',
                 data: { pid: pid },
                 success: function (data) {
-                    var tp = '<table border="1"><tr><th>Debit</th><th>Credit</th><th>Remarks</th><th>Date/Time</th></tr>';                
+                    var tp = '<table class="table table-striped table-hover" border="1"><thead><tr><th style="font-size: 16px" scope="col"><b>Payment ID</b></th><th style="font-size: 16px" scope="col"><b>Debit</b></th><th scope="col" style="font-size: 16px"><b>Credit</b></th><th scope="col" style="font-size: 16px"><b>Remarks</b></th><th scope="col" style="font-size: 16px"><b>Date/Time</b></th></tr></thead><tbody>';                
                     var tmpdb=0,tmpcr=0;
                     for (var i = 0; i < data.length; i++) {
                         tmpdb += data[i]['DebitAmt'];
                         tmpcr += data[i]['CreditAmt'];
                         tp += '<tr>';
+                        tp +='<td>'+data[i]['PaymentId']+'</td>';
                         tp +='<td>'+data[i]['DebitAmt']+'</td>';
                         tp +='<td>'+data[i]['CreditAmt']+'</td>';
                         tp +='<td>'+data[i]['Remarks']+'</td>';
@@ -27,7 +28,9 @@ block append scripts
                     }
                     document.getElementById('temp').innerHTML = tp;
                     document.getElementById('temp').innerHTML += '</tbody></table>';
-                    document.getElementById('balance').innerHTML = "Account Balance:" + "<b>" + (tmpcr-tmpdb)+"</b>";
+                    var balance = tmpcr-tmpdb;
+                    localStorage.setItem("balance",balance);
+                    document.getElementById('balance').innerHTML = "Account Balance:" + "<b>" + balance +"</b>";
                     }
                 })
             }            
@@ -36,11 +39,15 @@ block append scripts
             }
         });
 block content
-    div(id="balance")
-    div(id="temp")
-    form#AddPaymentForm(method='post' action='/payment/add/')
-        input(type="hidden" name="ptid" id="pidval")
-        label Add Payment Amount
-        input#email(type='text' name='creditAmt')
-        input(type='submit' name='submit' value='submit')
+    .container(style='height:1300px;')
+        .row.mt-5.pt-5
+            .col.text-center
+                h1  "Make some small amount of payment and get best services."
+                form.form-horizontal#AddPaymentForm(method='post' action='/payment/add/')
+                    .form-group(align="center")
+                    input(type="hidden" name="ptid" id="pidval")
+                    input.form-control.col-md-4#creditAmt(type='number' name='creditAmt' min="0" align="center" style="-moz-appearance: textfield" placeholder="Write Amount Here")
+                    button.btn.btn-info(type='submit' name='submit') Add Money
+                div(id="balance")
+                div(id="temp")
 

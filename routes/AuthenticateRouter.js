@@ -16,10 +16,11 @@ router.post('/login', (req, res) => {
     var password = req.body.password;
     connection.query('SELECT * FROM PatientTbl WHERE PatientEmail = ?', [email], function (error, results, fields) {
         if (error) {
-            res.json({
+            var op = {
                 status: false,
                 message: 'there are some error with query'
-            })
+            }
+            res.render('login', { obj: op });
         } else {
             if (results.length > 0) {
                 if (password == results[0].PatientPass) {
@@ -28,25 +29,22 @@ router.post('/login', (req, res) => {
                         "pid": results[0].PatientId,
                         "message": "Authenticated Successfully"
                     };
-                    // res.json({
-                    //     "status": true,
-                    //     "pid": results[0].PatientId,
-                    //     "message": "Authenticated Successfully"
-                    // });
                     res.render('homePage', { obj: op });
                 } else {
-                    res.json({
+                    var op = {
                         status: false,
                         message: "Email and password does not match"
-                    });
+                    }
+                    res.render('login', { obj: op });
                 }
 
             }
             else {
-                res.json({
+                var op = {
                     status: false,
                     message: "Email does not exits"
-                });
+                }
+                res.render('login', { obj: op });
             }
         }
     });

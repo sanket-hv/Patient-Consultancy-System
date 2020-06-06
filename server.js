@@ -35,7 +35,7 @@ app.get('/homePage', (req, res) => {
 
 //View Registration Page
 app.get('/registration', (req, res) => {
-    res.render('registration');
+    res.render('signup');
 })
 
 
@@ -71,7 +71,11 @@ app.get('/servicePage/:pid', (req, res) => {
 
 //Logout
 app.get('/logout', (req, res) => {
-    res.render('logoutPage');
+    var op = {
+        'message': 'logged out successfully'
+    }
+
+    res.render('logoutPage', { obj: op });
 })
 
 app.use('/payment', paymentRoute);

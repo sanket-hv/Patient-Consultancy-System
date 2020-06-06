@@ -7,6 +7,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 router.post('/add', (req, res) => {
+    if (req.body.creditAmt == null) {
+        var op = {
+            'message': "Enter the Amount"
+        }
+        res.render("paymentPage", { obj: op })
+    }
     var today = new Date();
     var payments = {
         "DebitAmt": 0,
@@ -17,11 +23,12 @@ router.post('/add', (req, res) => {
     }
     connection.query('INSERT INTO PaymentTbl SET ?', payments, function (error, results, fields) {
         if (error) {
-            res.json({
+            var op = {
                 status: false,
                 data: payments,
                 message: 'there are some error with query',
-            })
+            }
+            res.render('homePage', { obj: op });
         } else {
             var op = {
                 status: true,
@@ -41,6 +48,7 @@ router.post('/history', (req, res) => {
 })
 
 router.get('/service/video/:pid', (req, res) => {
+
     console.log("This is a video call service");
     var today = new Date();
     var payments = {
@@ -52,11 +60,12 @@ router.get('/service/video/:pid', (req, res) => {
     }
     connection.query('INSERT INTO PaymentTbl SET ?', payments, function (error, results, fields) {
         if (error) {
-            res.json({
+            var op = {
                 status: false,
                 data: payments,
                 message: 'there are some error with query',
-            })
+            }
+            res.render('homePage', { obj: op });
         } else {
             var op = {
                 status: true,
@@ -80,11 +89,12 @@ router.get('/service/call/:pid', (req, res) => {
     }
     connection.query('INSERT INTO PaymentTbl SET ?', payments, function (error, results, fields) {
         if (error) {
-            res.json({
+            var op = {
                 status: false,
                 data: payments,
                 message: 'there are some error with query',
-            })
+            }
+            res.render('homePage', { obj: op });
         } else {
             var op = {
                 status: true,
@@ -108,11 +118,12 @@ router.get('/service/chat/:pid', (req, res) => {
     }
     connection.query('INSERT INTO PaymentTbl SET ?', payments, function (error, results, fields) {
         if (error) {
-            res.json({
+            var op = {
                 status: false,
                 data: payments,
                 message: 'there are some error with query',
-            })
+            }
+            res.render('homePage', { obj: op });
         } else {
             var op = {
                 status: true,
