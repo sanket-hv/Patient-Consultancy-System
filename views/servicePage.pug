@@ -2,13 +2,50 @@ extends layout.pug
 
 block append scripts
     script(src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css").
-
-
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"). 
+    script(type="text/javascript").
+        $(document).ready(function(){
+        balance = localStorage.getItem("balance");
+            alert("Your balance is: "+ balance );                
+            if(balance < 50)
+            {
+                document.getElementById("chatbot").style.display = "none";
+                document.getElementById("videocall").style.display = "none";
+                document.getElementById("voicecall").style.display = "none";                
+                alert("Service is not avaialable due to less balance");    
+                document.getElementById("pay").style.display = "block";
+            }
+            else if(balance < 80)
+            {
+                document.getElementById("chatbot").style.display = "block";
+                document.getElementById("videocall").style.display = "none";
+                document.getElementById("voicecall").style.display = "none";
+                alert("Video call & Voice call Service is not avaialable due to less balance");    
+                document.getElementById("pay").style.display = "block";
+            }
+            else if(balance < 100)
+            {
+                document.getElementById("chatbot").style.display = "block";
+                document.getElementById("videocall").style.display = "none";
+                document.getElementById("voicecall").style.display = "block";
+                alert("Video call Service is not avaialable due to less balance");    
+                document.getElementById("pay").style.display = "block";
+            }
+            else if(balance > 100)
+            {
+                document.getElementById("chatbot").style.display = "block";
+                document.getElementById("videocall").style.display = "block";
+                document.getElementById("voicecall").style.display = "block";
+                document.getElementById("pay").style.display = "none";
+            }
+        })
 block content
     .container(style='height:1300px;')
         .row.mt-5.pt-5
             .col.text-center
                 h1 "Get servived by our team on different platforms."
+                div#pay
+                        a(href="/paymentPage/"+obj.pid) Make Payment  
                 ul#menu
                 div#chatbot  
                     li
@@ -25,4 +62,4 @@ block content
                         a(href="/payment/service/call/"+obj.pid)
                             img(src="/images/voicecall.png" height="250px" width="250px")
                         div (Service Charge: 80 Rs.)
-                    
+                

@@ -17,13 +17,14 @@ const registerRoute = require('./routes/RegisterRouter');
 const authenticateRoute = require('./routes/AuthenticateRouter');
 const paymentRoute = require('./routes/PaymentRouter');
 
-//View Login Page
-app.get('/login', (req, res) => {
-    res.render('login');
-})
 
 app.get('/', (req, res) => {
     res.render('index');
+})
+
+//View Login Page
+app.get('/login', (req, res) => {
+    res.render('login');
 })
 
 app.get('/homePage', (req, res) => {
